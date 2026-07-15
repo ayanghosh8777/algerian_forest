@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FWI</title>
+</head>
+<body>
+      <form action="{{url_for('predict_data')}}" method="post">
+          <!-- Add input fields for each feature -->
+            <input type="text" name="Temperature" placeholder="Temperature" required="required">
+            <input type="text" name="Rain" placeholder="Rain" required>
+          <input type="text" name="FFMC" placeholder="FFMC" required>
+          <input type="text" name="DMC" placeholder="DMC" required>
+          <input type="text" name="DC" placeholder="DC" required>
+          <input type="text" name="ISI" placeholder="ISI" required>
+          <input type="text" name="BUI" placeholder="BUI" required>
+          <input type="text" name="Classes" placeholder="Classes" required>
+          <input type="text" name="Region" placeholder="Region" required>
+          <!-- Add more input fields as needed -->
+          <button type="submit">SUBMIT</button>
+      </form>
+      <h2>Prediction Result:{{prediction}}</h2>
+      
+</body>
+</html>
