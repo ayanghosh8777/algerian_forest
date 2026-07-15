@@ -3,24 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FWI</title>
+    <title>Forest Fire Weather Index Prediction</title>
 </head>
+
 <body>
-      <form action="{{url_for('predict_data')}}" method="post">
-          <!-- Add input fields for each feature -->
-            <input type="text" name="Temperature" placeholder="Temperature" required="required">
-            <input type="text" name="Rain" placeholder="Rain" required>
-          <input type="text" name="FFMC" placeholder="FFMC" required>
-          <input type="text" name="DMC" placeholder="DMC" required>
-          <input type="text" name="DC" placeholder="DC" required>
-          <input type="text" name="ISI" placeholder="ISI" required>
-          <input type="text" name="BUI" placeholder="BUI" required>
-          <input type="text" name="Classes" placeholder="Classes" required>
-          <input type="text" name="Region" placeholder="Region" required>
-          <!-- Add more input fields as needed -->
-          <button type="submit">SUBMIT</button>
-      </form>
-      <h2>Prediction Result:{{prediction}}</h2>
-      
+
+    <h1>Forest Fire Weather Index (FWI) Prediction</h1>
+
+    <p>
+        Enter the environmental parameters below to predict the
+        <strong>Fire Weather Index (FWI)</strong>, which indicates the potential
+        intensity and spread of a forest fire.
+    </p>
+
+    <hr>
+
+    <h3>Parameter Description</h3>
+
+    <ul>
+        <li><b>Temperature (°C)</b> – Air temperature in degrees Celsius.</li>
+
+        <li><b>Rain (mm)</b> – Amount of rainfall received.</li>
+
+        <li><b>FFMC (Fine Fuel Moisture Code)</b> – Indicates the moisture content of surface litter and fine fuels.
+            <br><i>Typical Range:</i> 18 – 96</li>
+
+        <li><b>DMC (Duff Moisture Code)</b> – Indicates the moisture content of loosely compacted organic layers.
+            <br><i>Typical Range:</i> 1 – 300+</li>
+
+        <li><b>DC (Drought Code)</b> – Indicates long-term drying of deep compact organic matter.
+            <br><i>Typical Range:</i> 7 – 800+</li>
+
+        <li><b>ISI (Initial Spread Index)</b> – Measures the expected rate of fire spread.
+            <br><i>Higher value = Faster spread</i></li>
+
+        <li><b>BUI (Build Up Index)</b> – Represents the total amount of fuel available for combustion.</li>
+
+        <li><b>Classes</b> –
+            <ul>
+                <li>0 = No Fire</li>
+                <li>1 = Fire</li>
+            </ul>
+        </li>
+
+        <li><b>Region</b> –
+            <ul>
+                <li>0 = Bejaia Region</li>
+                <li>1 = Sidi-Bel Abbes Region</li>
+            </ul>
+        </li>
+
+    </ul>
+
+    <hr>
+
+    <form action="{{ url_for('predict_data') }}" method="POST">
+
+        <input type="number" step="any" name="Temperature" placeholder="Temperature (°C)" required><br><br>
+
+        <input type="number" step="any" name="Rain" placeholder="Rain (mm)" required><br><br>
+
+        <input type="number" step="any" name="FFMC" placeholder="FFMC" required><br><br>
+
+        <input type="number" step="any" name="DMC" placeholder="DMC" required><br><br>
+
+        <input type="number" step="any" name="DC" placeholder="DC" required><br><br>
+
+        <input type="number" step="any" name="ISI" placeholder="ISI" required><br><br>
+
+        <input type="number" step="any" name="BUI" placeholder="BUI" required><br><br>
+
+        <input type="number" step="1" name="Classes" placeholder="Classes (0 or 1)" required><br><br>
+
+        <input type="number" step="1" name="Region" placeholder="Region (0 or 1)" required><br><br>
+
+        <button type="submit">Predict FWI</button>
+
+    </form>
+
+    <hr>
+
+    {% if prediction is defined %}
+        <h2>Predicted Fire Weather Index (FWI): {{ prediction }}</h2>
+
+        <p>
+            <b>Interpretation:</b>
+        </p>
+
+        <ul>
+            <li><b>FWI < 5:</b> Very Low Fire Danger</li>
+            <li><b>5 – 15:</b> Low Fire Danger</li>
+            <li><b>15 – 30:</b> Moderate Fire Danger</li>
+            <li><b>30 – 45:</b> High Fire Danger</li>
+            <li><b>> 45:</b> Extreme Fire Danger</li>
+        </ul>
+
+        <p>
+            A higher Fire Weather Index indicates a greater potential for fire ignition,
+            faster fire spread, and increased fire intensity.
+        </p>
+
+    {% endif %}
+
 </body>
 </html>
