@@ -4,10 +4,17 @@ from sklearn.preprocessing import StandardScaler
 import pickle
 application = Flask(__name__)
 app=application
+import os
 
-ridge_model=pickle.load(open('C:\\ML1\\models\\ridge.pkl','rb'))
-standard_scaler=pickle.load(open('C:\\ML1\\models\\scaler.pkl','rb'))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+ridge_model = pickle.load(
+    open(os.path.join(BASE_DIR, "models", "ridge.pkl"), "rb")
+)
+
+standard_scaler = pickle.load(
+    open(os.path.join(BASE_DIR, "models", "scaler.pkl"), "rb")
+)
 @app.route("/")
 def index():
     return render_template('index.html')
