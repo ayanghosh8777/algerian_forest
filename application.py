@@ -17,7 +17,7 @@ standard_scaler = pickle.load(
 )
 @app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template('home.html')
 
 @app.route("/predictdata", methods=["GET", "POST"])
 def predict_data():
@@ -45,7 +45,7 @@ def predict_data():
           # Return the prediction result
           return render_template('home.html', prediction=prediction[0])
      else:
-          return render_template('home.html')
+          return render_template('index.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
